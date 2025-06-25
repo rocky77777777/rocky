@@ -193,7 +193,7 @@
         const FRICTION = 0.85;  // 摩擦を増やして動きにくく
         const DROP_LINE_Y = 80;  // ドロップライン（ここから落とす）
         const DANGER_LINE_Y = 150;  // デンジャーラインを下げて狭く
-        const DROP_COOLDOWN = 1000;  // クールダウンを2倍に増加
+        const DROP_COOLDOWN = 0;  // クールダウンなし（連続で落とせる）
         
         // おじさんの種類
         const ojisanTypes = [
@@ -537,6 +537,22 @@
         playerNameElement.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 saveHighScore();
+            }
+        });
+        
+        // Enterキーでおじさんを落とす
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !gameOver && canDrop && document.activeElement !== playerNameElement) {
+                // マウス位置におじさんを生成
+                const newOjisan = new Ojisan(mouseX, DROP_LINE_Y, nextType);
+                ojisans.push(newOjisan);
+                
+                // クールダウン開始
+                canDrop = false;
+                lastDropTime = Date.now();
+                
+                // 次のおじさんを生成
+                generateNextType();
             }
         });
         
