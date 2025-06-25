@@ -188,12 +188,12 @@
         const scoreListElement = document.getElementById('scoreList');
         
         // ゲーム設定
-        const GRAVITY = 0.4;
-        const BOUNCE_DAMPING = 0.4;
-        const FRICTION = 0.95;
+        const GRAVITY = 0.8;  // 重力を2倍に増加
+        const BOUNCE_DAMPING = 0.2;  // バウンド減衰を半分に（弾みにくく）
+        const FRICTION = 0.85;  // 摩擦を増やして動きにくく
         const DROP_LINE_Y = 80;  // ドロップライン（ここから落とす）
-        const DANGER_LINE_Y = 100;  // デンジャーライン（これを超えるとゲームオーバー）
-        const DROP_COOLDOWN = 500;  // 次を落とすまでの待機時間（ミリ秒）
+        const DANGER_LINE_Y = 150;  // デンジャーラインを下げて狭く
+        const DROP_COOLDOWN = 1000;  // クールダウンを2倍に増加
         
         // おじさんの種類
         const ojisanTypes = [
@@ -430,8 +430,19 @@
         }
         
         function generateNextType() {
-            // 最初の3種類からランダムに選択
-            nextType = Math.floor(Math.random() * 3);
+            // より難しく：最初の5種類からランダムに選択（大きいのも出やすく）
+            const weights = [30, 25, 20, 15, 10];  // 各タイプの出現確率
+            const totalWeight = weights.reduce((a, b) => a + b, 0);
+            let random = Math.random() * totalWeight;
+            
+            for (let i = 0; i < weights.length; i++) {
+                random -= weights[i];
+                if (random <= 0) {
+                    nextType = i;
+                    break;
+                }
+            }
+            
             nextFaceElement.textContent = ojisanTypes[nextType].face;
         }
         
