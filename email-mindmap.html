@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ステップメール vs リマインドメール</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Noto Sans JP', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 50px;
+            font-size: 2.5em;
+        }
+        
+        .mindmap {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .email-type {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .main-node {
+            background: #667eea;
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .step-mail .main-node {
+            background: #667eea;
+        }
+        
+        .remind-mail .main-node {
+            background: #764ba2;
+        }
+        
+        .sub-nodes {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .sub-nodes::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: -20px;
+            bottom: 20px;
+            width: 2px;
+            background: #ddd;
+        }
+        
+        .sub-node {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 10px;
+            position: relative;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .remind-mail .sub-node {
+            border-left-color: #764ba2;
+        }
+        
+        .sub-node::before {
+            content: '';
+            position: absolute;
+            left: -42px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 2px;
+            background: #ddd;
+        }
+        
+        .sub-node h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 1.1em;
+        }
+        
+        .sub-node p {
+            margin: 0;
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        
+        .feature {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 8px;
+            margin-right: 5px;
+        }
+        
+        .remind-mail .feature {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>メールマーケティング戦略</h1>
+        
+        <div class="mindmap">
+            <div class="email-type step-mail">
+                <div class="main-node">ステップメール</div>
+                <div class="sub-nodes">
+                    <div class="sub-node">
+                        <h3>定義</h3>
+                        <p>あらかじめ設定したシナリオに沿って、段階的に配信される自動メール</p>
+                        <span class="feature">自動化</span>
+                        <span class="feature">教育的</span>
+                    </div>
+                    
+                    <div class="sub-node">
+                        <h3>目的</h3>
+                        <p>顧客との関係構築、商品・サービスの理解促進、購買意欲の醸成</p>
+                        <span class="feature">育成</span>
+                        <span class="feature">信頼構築</span>
+                    </div>
+                    
+                    <div class="sub-node">
+                        <h3>配信タイミング</h3>
+                        <p>登録・購入などのアクションを起点に、決められた間隔で順次配信</p>
+                        <span class="feature">計画的</span>
+                        <span class="feature">順序性</span>
+                    </div>
+                    
+                    <div class="sub-node">
+                        <h3>活用例</h3>
+                        <p>・新規会員向けウェルカムメール<br>
+                        ・商品の使い方講座<br>
+                        ・導入事例の紹介</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="email-type remind-mail">
+                <div class="main-node">リマインドメール</div>
+                <div class="sub-nodes">
+                    <div class="sub-node">
+                        <h3>定義</h3>
+                        <p>特定のアクションを促すため、適切なタイミングで送信される通知メール</p>
+                        <span class="feature">即時性</span>
+                        <span class="feature">行動促進</span>
+                    </div>
+                    
+                    <div class="sub-node">
+                        <h3>目的</h3>
+                        <p>忘れ防止、行動の促進、期限の通知、機会損失の防止</p>
+                        <span class="feature">注意喚起</span>
+                        <span class="feature">緊急性</span>
+                    </div>
+                    
+                    <div class="sub-node">
+                        <h3>配信タイミング</h3>
+                        <p>イベントや期限の前後、カート放棄時、更新時期など特定の状況で配信</p>
+                        <span class="feature">状況依存</span>
+                        <span class="feature">タイムリー</span>
+                    </div>
+                    
+                    <div class="sub-node">
+                        <h3>活用例</h3>
+                        <p>・カート放棄リマインダー<br>
+                        ・予約確認メール<br>
+                        ・契約更新のお知らせ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google AI Studio 始め方・初期設定ガイド</title>
+    <style>
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background: #fff;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .step {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .note {
+            background: #d1ecf1;
+            border: 1px solid #b8daff;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        ul, ol {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .feature-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .button-example {
+            background: #e8f5e8;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="highlight">
+<strong>このガイドについて：</strong><br>
+Google AI Studioは、Googleが提供する無料のAI開発プラットフォームです。このガイドでは、初心者でも分かりやすいよう、アカウント登録から基本的な使い方まで画像付きで詳しく解説します。
+</div>
+
+<h2>Google AI Studioとは</h2>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/image-6-1024x441.webp" alt="Google AI Studio 公式サイト">
+
+<p><strong>Google AI Studio</strong>は、Googleが提供する生成AI開発プラットフォームです。Geminiモデルを無料で実験的に活用できるサービスとして、2023年末に公開されました。</p>
+
+<div class="feature-list">
+<h3>主な特徴</h3>
+<ul>
+<li><strong>無料でGemini 1.5 Proが利用可能</strong>（200万トークンまで）</li>
+<li><strong>多様なファイル形式に対応</strong>（画像・動画・音声・PDF）</li>
+<li><strong>APIキー発行機能</strong>で外部サービスと連携可能</li>
+<li><strong>高度なパラメーター調整</strong>でAI応答をカスタマイズ</li>
+<li><strong>日本語対応</strong>で直感的な操作が可能</li>
+</ul>
+</div>
+
+<h2>アカウント登録とセットアップ</h2>
+
+<h3>必要なもの</h3>
+<ul>
+<li>Googleアカウント</li>
+<li>インターネット接続</li>
+<li>ウェブブラウザ</li>
+</ul>
+
+<div class="step">
+<h3>公式サイトにアクセス</h3>
+<p><a href="https://aistudio.google.com/welcome" target="_blank">https://aistudio.google.com/welcome</a> にアクセスします。</p>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3-2025-03-15T142755.954.png" alt="Google AI Studio サインインボタン">
+
+<p>「<strong>Sign in to Google AI Studio</strong>」ボタンをクリックします。</p>
+</div>
+
+<div class="step">
+<h3>Googleアカウントでログイン</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/image-19-1024x462.png" alt="Googleアカウント ログイン画面">
+
+<p>お持ちのGoogleアカウントでログインします。</p>
+</div>
+
+<div class="step">
+<h3>Try Geminiをクリック</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3-2025-03-15T143136.107.png" alt="Try Gemini ボタン画面">
+
+<p>初回アクセス時に表示される「<strong>Try Gemini</strong>」ボタンをクリックします。</p>
+</div>
+
+<div class="step">
+<h3>利用規約に同意</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3-2025-03-15T143209.048.png" alt="利用規約同意画面">
+
+<p>利用規約とプライバシーポリシーを確認し、チェックボックスにチェックを入れて「<strong>I accept</strong>」をクリックします。</p>
+</div>
+
+<div class="step">
+<h3>セットアップ完了</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/image-20-1024x463.png" alt="Google AI Studio ホーム画面">
+
+<p>これでセットアップは完了です。Google AI Studioのホーム画面が表示され、すぐに利用を開始できます。</p>
+</div>
+
+<h2>基本画面の見方</h2>
+
+<h3>モデル選択</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3-2025-03-15T140544.717.png" alt="モデル選択画面">
+
+<p>画面上部のドロップダウンメニューから使用するAIモデルを選択できます。主なモデル：</p>
+<ul>
+<li><strong>Gemini 2.0 Flash</strong>：高速処理に最適</li>
+<li><strong>Gemini 2.0 Pro</strong>：高精度な回答が必要な場合</li>
+<li><strong>Gemini 1.5 Pro</strong>：バランスの取れた性能</li>
+<li><strong>Gemmaシリーズ</strong>：軽量なオープンソースモデル</li>
+</ul>
+
+<h3>パラメーター設定</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3-2025-03-15T143602.992.png" alt="パラメーター設定画面">
+
+<p>画面右側でAIの応答をカスタマイズできます：</p>
+
+<div class="feature-list">
+<ul>
+<li><strong>Temperature</strong>：創造性の度合い（0-1.0）</li>
+<li><strong>Top P</strong>：回答の多様性を制御</li>
+<li><strong>Safety settings</strong>：不適切なコンテンツの制限</li>
+<li><strong>Web search</strong>：最新情報の検索機能</li>
+</ul>
+</div>
+
+<h3>プロンプト入力</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3-2025-03-15T140304.246.png" alt="プロンプト入力欄">
+
+<p>画面下部の入力欄にAIへの指示や質問を日本語で入力します。「Run」ボタンをクリックすると実行されます。</p>
+
+<h3>トークン使用量の確認</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3-2025-03-15T143826.139.png" alt="トークン使用量表示">
+
+<p>画面上部でその日の使用トークン数を確認できます。無料枠の管理に役立ちます。</p>
+
+<h2>APIキーの取得方法</h2>
+
+<div class="note">
+<strong>APIキーについて：</strong><br>
+自社のアプリケーションやサービスでGoogle AI Studioの機能を使用したい場合に必要です。開発者向けの機能ですが、取得方法は簡単です。
+</div>
+
+<div class="step">
+<h3>APIキー管理画面へ</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/image-6-1024x386.png" alt="APIキー取得画面">
+
+<p>画面左上の「<strong>Get API key</strong>」をクリックします。</p>
+</div>
+
+<div class="step">
+<h3>APIキー作成</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3-2025-03-15T143959.042.png" alt="APIキー管理画面">
+
+<p>「<strong>APIキーを作成</strong>」ボタンをクリックします。</p>
+</div>
+
+<div class="step">
+<h3>キー名の設定</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/image-21.png" alt="APIキー作成画面">
+
+<p>APIキーの名前（用途や連携するサービス名など）を入力し、「<strong>既存のプロジェクトでAPIキーを作成</strong>」をクリックします。</p>
+</div>
+
+<div class="step">
+<h3>APIキーの保存</h3>
+
+<img src="https://www.adcal-inc.com/wp-content/uploads/2025/03/%E3%83%97%E3%83%AD%E3%83%89%E3%83%A32-19.png" alt="APIキー表示画面">
+
+<p>生成されたAPIキーが表示されるので、コピーして安全な場所に保管します。</p>
+</div>
+
+<div class="highlight">
+<strong>重要：</strong><br>
+APIキーは一度しか表示されません。必ず安全な場所にコピーして保管してください。複数のプロジェクトで使用する場合は、用途ごとに別々のAPIキーを作成することをおすすめします。
+</div>
+
+<h2>効果的な使い方のコツ</h2>
+
+<h3>プロンプトの書き方</h3>
+<div class="feature-list">
+<ul>
+<li><strong>具体的で明確な指示</strong>を心がける</li>
+<li><strong>出力形式</strong>（文字数、箇条書きなど）を指定する</li>
+<li><strong>役割設定</strong>（専門家として答えてなど）を活用する</li>
+<li><strong>段階的に指示</strong>を出すことで精度を上げる</li>
+</ul>
+</div>
+
+<h3>モデルの選び方</h3>
+<div class="feature-list">
+<ul>
+<li><strong>速度重視</strong>：Gemini 2.0 Flash</li>
+<li><strong>精度重視</strong>：Gemini 2.0 Pro</li>
+<li><strong>バランス重視</strong>：Gemini 1.5 Pro</li>
+<li><strong>軽量処理</strong>：Gemmaシリーズ</li>
+</ul>
+</div>
+
+<h3>無料枠の活用</h3>
+<div class="note">
+<ul>
+<li>Gemini 1.5 Pro：<strong>200万トークン/月</strong>まで無料</li>
+<li>トークン使用量は画面上部で確認可能</li>
+<li>効率的なプロンプトで無料枠を最大活用</li>
+</ul>
+</div>
+
+<h2>まとめ</h2>
+
+<p>Google AI Studioは、無料で高性能なAIモデルを利用できる素晴らしいプラットフォームです。このガイドの手順に従えば、初心者でも簡単に始めることができます。</p>
+
+<div class="highlight">
+<strong>次のステップ：</strong><br>
+• 実際にプロンプトを入力して動作を確認<br>
+• 異なるモデルでの回答比較<br>
+• パラメーター調整での出力変化を体験<br>
+• 画像や音声ファイルのアップロード機能を試す
+</div>
+
+<p>Google AI Studioを活用して、AIの可能性を存分に探索してください！</p>
+
+</body>
+</html>

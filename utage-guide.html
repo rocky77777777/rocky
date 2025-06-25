@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTAGE 用語集 - ITが苦手な方でも分かる解説</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', Arial, sans-serif;
+            background: #f3f4f6;
+            overflow-x: hidden;
+        }
+        
+        .slide-container {
+            scroll-snap-type: y mandatory;
+            height: 100vh;
+            overflow-y: scroll;
+        }
+        
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            position: relative;
+        }
+        
+        .slide-content {
+            width: 1280px;
+            height: 720px;
+            padding: 80px 100px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #2563eb;
+        }
+        
+        h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #1e40af;
+        }
+        
+        h3 {
+            font-size: 20px;
+            color: #3730a3;
+            margin-bottom: 10px;
+        }
+        
+        .term-box {
+            background: #f0f9ff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #3b82f6;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .icon-header {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .important {
+            background: #fee2e2;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ef4444;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .comparison-table th {
+            background: #e0e7ff;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .flex-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .flex-item {
+            flex: 1;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .bg-blue { background: #e0f2fe; }
+        .bg-green { background: #dcfce7; }
+        .bg-yellow { background: #fef3c7; }
+        .bg-gray { background: #f3f4f6; }
+        .bg-light-blue { background: #dbeafe; }
+        .bg-step { background: #e8f2ff; }
+        .bg-remind { background: #ffe8e8; }
+        .bg-light { background: #f0f9ff; }
+        .bg-light-green { background: #f0fdf4; }
+        
+        .text-center { text-align: center; }
+        .font-small { font-size: 14px; }
+        .font-smaller { font-size: 13px; }
+        
+        .flow-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .flow-item {
+            text-align: center;
+        }
+        
+        .flow-number {
+            font-size: 36px;
+            margin-bottom: 5px;
+        }
+        
+        .flow-text {
+            font-size: 16px;
+        }
+        
+        .flow-arrow {
+            font-size: 24px;
+        }
+        
+        ul {
+            list-style-position: inside;
+            margin-left: 10px;
+        }
+        
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>UTAGE 用語集</h1>
+                <h2>ITが苦手な方でも分かる解説</h2>
+                <div class="icon-header">📚 🚀 💡</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: ファネル -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>基本用語 その1</h1>
+                <h2>🎯 ファネル (Funnel)</h2>
+                <div class="term-box">
+                    <h3>お客様を購入まで導く「道筋」</h3>
+                    <p><strong>たとえば</strong>：お店の入口から購入レジまでの道のようなもの</p>
+                    <ol>
+                        <li>👁️ 商品を見つける</li>
+                        <li>📝 メールアドレスを登録</li>
+                        <li>💳 商品を購入</li>
+                    </ol>
+                    <p style="margin-top: 15px;"><strong>UTAGEでできること</strong></p>
+                    <ul>
+                        <li>何人が見て、何人が登録したかを計測</li>
+                        <li>効果的な道筋を作成・改善</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: ページ要素 -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>基本用語 その2</h1>
+                <h2>🧩 ページ要素 (Page Element)</h2>
+                <div class="term-box">
+                    <h3>ウェブページを作る「部品」</h3>
+                    <p><strong>レゴブロックのように組み合わせて使います</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li>📝 <strong>テキスト</strong> - 文章を表示</li>
+                        <li>🖼️ <strong>画像・動画</strong> - 視覚的な情報</li>
+                        <li>✍️ <strong>登録フォーム</strong> - お客様情報の入力</li>
+                        <li>💳 <strong>決済フォーム</strong> - 購入手続き</li>
+                        <li>⏰ <strong>カウントダウン</strong> - 期限を表示</li>
+                        <li>📱 <strong>LINE連携</strong> - 友だち追加ボタン</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: ウェビナー -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>基本用語 その3</h1>
+                <h2>🎥 ウェビナー (Webinar)</h2>
+                <div class="term-box">
+                    <h3>インターネット上のセミナー</h3>
+                    <p><strong>UTAGEの自動ウェビナー機能</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li>🗓️ 決まった曜日・時間に自動開催</li>
+                        <li>💬 チャットメッセージも自動表示</li>
+                        <li>⏰ カウントダウンで緊急感を演出</li>
+                        <li>📊 参加者データを自動収集</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>活用例</strong>：毎週水曜20時に商品説明会を自動開催</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: 配信の仕組み -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>配信の仕組み</h1>
+                <h2>📮 配信アカウント</h2>
+                
+                <div class="flex-container font-small">
+                    <div class="flex-item bg-blue text-center">
+                        <strong>📧 メール</strong><br>
+                        シンプル運用
+                    </div>
+                    <div class="flex-item bg-green text-center">
+                        <strong>📱 LINE</strong><br>
+                        開封率が高い
+                    </div>
+                    <div class="flex-item bg-yellow text-center">
+                        <strong>📧📱 併用</strong><br>
+                        最も効果的
+                    </div>
+                </div>
+
+                <div class="important" style="margin-top: 15px;">
+                    ⚠️ <strong>重要</strong>：1つのLINE公式アカウントは1つの配信アカウントにのみ連携可能
+                </div>
+
+                <div class="flex-container">
+                    <div class="flex-item font-smaller" style="background-color: #e5e7eb; border: 1px solid #d1d5db;">
+                        <strong>💡 ライトプラン</strong><br>
+                        配信アカウント：1つまで
+                    </div>
+                    <div class="flex-item font-smaller" style="background-color: #dbeafe; border: 1px solid #93c5fd;">
+                        <strong>🚀 スタンダードプラン</strong><br>
+                        配信アカウント：無制限
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: シナリオ -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>シナリオとは？</h1>
+                <h2>📋 シナリオ (Scenario)</h2>
+                <div class="term-box">
+                    <h3>お客様への「おもてなしプラン」</h3>
+                    <p><strong>自動化できること</strong></p>
+                    <ul>
+                        <li>👋 ウェルカムメッセージ</li>
+                        <li>📚 ステップ配信</li>
+                        <li>⏰ リマインダー</li>
+                        <li>📢 一斉送信</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>便利な機能</strong></p>
+                    <ul>
+                        <li>メール/LINE統合管理</li>
+                        <li>行動に応じた配信</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: 2つの自動配信 -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>2つの自動配信</h1>
+                <div class="flex-container font-small">
+                    <div class="flex-item bg-step">
+                        <h3>📚 ステップ配信</h3>
+                        <p><strong>順番に届く</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>直後「ようこそ」</li>
+                            <li>3日後「使い方」</li>
+                            <li>7日後「事例」</li>
+                        </ul>
+                        <p style="margin-top: 15px; font-weight: bold;">💡 お客様を育成</p>
+                    </div>
+                    <div class="flex-item bg-remind">
+                        <h3>⏰ リマインド配信</h3>
+                        <p><strong>イベント前に</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>3日前「確認」</li>
+                            <li>前日「準備」</li>
+                            <li>当日「開催」</li>
+                        </ul>
+                        <p style="margin-top: 15px; font-weight: bold;">💡 参加率UP</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: ドメインの重要性 -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>ドメインの重要性</h1>
+                <h2>🌐 独自ドメイン</h2>
+                <div class="term-box">
+                    <h3>あなただけの「住所」</h3>
+                    <p><strong>例</strong>：<code>yourcompany.com</code></p>
+                    <p style="margin-top: 10px;"><strong>なぜ重要？</strong></p>
+                    <ul>
+                        <li>✅ 信頼性が高まる</li>
+                        <li>✅ メールが届きやすくなる</li>
+                        <li>✅ ブランドイメージ向上</li>
+                    </ul>
+                </div>
+                <div class="important">
+                    ⚠️ <strong>UTAGEの注意点</strong><br>
+                    • サブドメイン形式（<code>sub.yourcompany.com</code>）のみ登録可能<br>
+                    • 既存サーバーで使用中のサブドメインは利用不可
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: メールアドレスの必須要件 -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>メールアドレスの必須要件</h1>
+                <h2>✉️ 独自メールアドレス</h2>
+                <div class="term-box">
+                    <h3>UTAGEでメール配信するための必須条件</h3>
+                    <p><strong>使えるメール</strong> ✅</p>
+                    <ul>
+                        <li><code>info@yourcompany.com</code></li>
+                        <li><code>support@yourdomain.jp</code></li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>使えないメール</strong> ❌</p>
+                    <ul>
+                        <li><code>yourname@gmail.com</code></li>
+                        <li><code>yourname@yahoo.co.jp</code></li>
+                    </ul>
+                </div>
+                <div class="important">
+                    🚨 <strong>2024年2月以降、独自ドメインが必須です</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: オーダーバンプ -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>中級者向け機能</h1>
+                <h2>🛒 オーダーバンプ</h2>
+                <div class="term-box">
+                    <h3>「ついで買い」を促す仕組み</h3>
+                    <p><strong>例</strong>：ハンバーガーを注文時に「ポテトもいかが？」</p>
+                    <p style="margin-top: 15px;"><strong>UTAGEでの活用</strong></p>
+                    <ul>
+                        <li>決済画面で追加商品を提案</li>
+                        <li>ワンクリックで追加購入</li>
+                        <li>売上アップに効果的</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: バンドルコース -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>会員サイト機能</h1>
+                <h2>📦 バンドルコース</h2>
+                <div class="term-box">
+                    <h3>複数コースの「セット販売」</h3>
+                    <p><strong>例</strong>：料理教室の場合</p>
+                    <ul>
+                        <li>和食コース</li>
+                        <li>洋食コース</li>
+                        <li>中華コース</li>
+                    </ul>
+                    <p style="margin-top: 10px;">→ <strong>「料理マスターコース」として3つセットで提供</strong></p>
+                    <p style="margin-top: 15px;"><strong>便利な点</strong></p>
+                    <ul>
+                        <li>購入時に自動でコース開放</li>
+                        <li>内容変更は既存会員にも反映</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: メール認証 -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>メール認証の重要性</h1>
+                <h2>🔐 DKIM/DMARC認証</h2>
+                
+                <div style="display: flex; gap: 30px; align-items: flex-start;">
+                    <div style="flex: 1;">
+                        <div class="term-box">
+                            <h3>メールの「身分証明書」</h3>
+                            <p><strong>なぜ必要？</strong></p>
+                            <ul>
+                                <li>なりすましメールを防ぐ</li>
+                                <li>迷惑メールと判定されない</li>
+                                <li>確実にメールを届ける</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1;">
+                        <table class="comparison-table" style="margin: 0;">
+                            <tr>
+                                <th>認証方式</th>
+                                <th>必須レベル</th>
+                                <th>設定場所</th>
+                            </tr>
+                            <tr>
+                                <td><strong>SPF</strong></td>
+                                <td>UTAGE側で自動設定</td>
+                                <td>設定不要</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DKIM</strong></td>
+                                <td><span class="highlight">全ユーザー必須</span></td>
+                                <td>DNSレコード</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DMARC</strong></td>
+                                <td>大量配信者は必須</td>
+                                <td>DNSレコード</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: DKIM/DMARC設定の流れ -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>DKIM/DMARC設定の流れ</h1>
+                
+                <div class="flow-container">
+                    <div class="flow-item">
+                        <div class="flow-number">1️⃣</div>
+                        <div class="flow-text">UTAGE<br>認証取得</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <div class="flow-number">2️⃣</div>
+                        <div class="flow-text">DNS<br>レコード追加</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <div class="flow-number">3️⃣</div>
+                        <div class="flow-text">反映待ち<br>(48時間)</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <div class="flow-number">4️⃣</div>
+                        <div class="flow-text">テスト<br>確認</div>
+                    </div>
+                </div>
+                
+                <div class="important">
+                    ✅ 確認方法：Gmailでテストメールを受信し「DKIM: PASS」「DMARC: PASS」を確認
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: まとめ -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>まとめ</h1>
+                <h2>🎯 UTAGEを使いこなすために</h2>
+                
+                <div class="flex-container font-small">
+                    <div class="flex-item bg-light">
+                        <h3>📝 まず準備</h3>
+                        <ol style="margin-top: 10px;">
+                            <li>独自ドメイン取得</li>
+                            <li>メールアドレス作成</li>
+                            <li>DKIM認証設定</li>
+                        </ol>
+                    </div>
+                    <div class="flex-item bg-light-green">
+                        <h3>🚀 次に活用</h3>
+                        <ol style="margin-top: 10px;">
+                            <li>ファネルで集客</li>
+                            <li>シナリオで自動化</li>
+                            <li>データ分析・改善</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px; font-size: 24px; color: #059669;">
+                    ✨ 正しい設定で、確実にメッセージを届けましょう！
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

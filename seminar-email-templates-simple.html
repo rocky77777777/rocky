@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セミナー申込後の自動配信メールテンプレート</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #555;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        .template-box {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .template-content {
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            background-color: white;
+            padding: 15px;
+            border-radius: 3px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            user-select: all;
+            cursor: text;
+        }
+        .copy-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+        .copy-button:active {
+            transform: translateY(0);
+        }
+        .info-section {
+            background-color: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .variable-list {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        .variable-list ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .variable-list li {
+            margin: 10px 0;
+            padding: 5px;
+            background-color: white;
+            border-radius: 3px;
+        }
+        .variable-list code {
+            background-color: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .placeholder {
+            background-color: #fffacd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .debug-info {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 セミナー申込後の自動配信メールテンプレート</h1>
+        
+        <div class="info-section">
+            <strong>💡 使い方：</strong><br>
+            各テンプレートの「コピー」ボタンをクリックすると、内容がクリップボードにコピーされます。<br>
+            うまくいかない場合は、テキストを直接選択してコピーしてください。<br>
+            <span class="placeholder">【】</span>で囲まれた部分を自分の情報に置き換えてください。
+        </div>
+
+        <h2>1. 登録直後メール</h2>
+        <div class="template-box">
+            <button class="copy-button" onclick="copyText('template1')">コピー</button>
+            <div class="template-content" id="template1">%name% さま
+
+この度は
+「%scenario_name%」セミナーに
+お申し込みありがとうございます。
+
+■お申し込みのセミナー日時
+%event_date|n月j日(w) H:i%〜
+
+当日の15分前になりましたら
+ご登録のLINEに参加リンクをお送りしますね
+
+※まだLINE登録されていない方は、
+こちらから友だち登録しておいてくださいね！
+【LINE登録URL】
+
+何卒、よろしくお願い致します。
+
+【あなたの名前】
+【あなたのメールアドレス】
+
+配信解除はコチラ
+%cancel%</div>
+        </div>
+
+        <h2>2. 3日前リマインドメール</h2>
+        <div class="template-box">
+            <button class="copy-button" onclick="copyText('template2')">コピー</button>
+            <div class="template-content" id="template2">%name% さま
+
+この度は「%scenario_name%」セミナーに
+お申し込みありがとうございます。
+
+セミナー開始３日前になりました！
+
+■お申し込みのセミナー日時
+%event_date|n月j日(w) H:i%〜
+
+当日の15分前になりましたら
+ご登録のLINEに参加リンクをお送りしますね
+
+※まだLINE登録されていない方は、
+こちらから友だち登録しておいてくださいね！
+【LINE登録URL】
+
+何卒、よろしくお願い致します。
+
+【あなたの名前】
+【あなたのメールアドレス】
+
+配信解除は、コチラ
+%cancelall%</div>
+        </div>
+
+        <h2>3. 前日リマインドメール</h2>
+        <div class="template-box">
+            <button class="copy-button" onclick="copyText('template3')">コピー</button>
+            <div class="template-content" id="template3">%name% さま
+
+この度は「%scenario_name%」セミナーに
+お申し込みありがとうございます。
+
+セミナー前日になりました！
+
+■お申し込みのセミナー日時
+%event_date|n月j日(w) H:i%〜
+
+当日の15分前になりましたら
+ご登録のLINEに参加リンクをお送りしますね
+
+※まだLINE登録されていない方は、
+こちらから友だち登録しておいてくださいね！
+【LINE登録URL】
+
+何卒、よろしくお願い致します。
+
+【あなたの名前】
+【あなたのメールアドレス】
+
+配信解除は、コチラ
+%cancelall%</div>
+        </div>
+
+        <h2>4. 当日（セミナー開始前）メール</h2>
+        <div class="template-box">
+            <button class="copy-button" onclick="copyText('template4')">コピー</button>
+            <div class="template-content" id="template4">%name% さん
+
+受講の準備はできましたか？
+
+「%account_name%」セミナー
+まもなく開始、セミナー開始です！
+
+■お申し込みのセミナー日時
+%event_date|n月j日(w) H:i%〜
+
+アーカイブの配信は
+ありませんので
+集中できる環境で
+ご参加ください！
+
+↓↓
+【セミナー参加URL】
+
+【重要なお知らせ】
+個別相談はセミナーのみでご案内します！
+
+セミナーに参加された方のみに
+セミナー途中でご案内しますので、
+必ずお見逃しのないようにしてくださいませ✨
+
+【あなたの名前】
+【あなたのメールアドレス】
+
+配信解除はコチラ
+%cancel%</div>
+        </div>
+
+        <div class="variable-list">
+            <h3>📝 変数の説明</h3>
+            <ul>
+                <li><code>%name%</code> - 申込者の名前</li>
+                <li><code>%scenario_name%</code> - セミナー名</li>
+                <li><code>%event_date|n月j日(w) H:i%</code> - セミナー開催日時</li>
+                <li><code>%account_name%</code> - アカウント名</li>
+                <li><code>%cancel%</code> - 単体配信解除リンク</li>
+                <li><code>%cancelall%</code> - 全配信解除リンク</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="debug-info" id="debug"></div>
+
+    <script>
+        function showDebug(message) {
+            const debug = document.getElementById('debug');
+            debug.textContent = message;
+            debug.style.display = 'block';
+            setTimeout(() => {
+                debug.style.display = 'none';
+            }, 3000);
+        }
+
+        function copyText(elementId) {
+            const element = document.getElementById(elementId);
+            if (!element) {
+                showDebug('要素が見つかりません: ' + elementId);
+                return;
+            }
+
+            const text = element.textContent;
+            
+            // 方法1: 新しいClipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text)
+                    .then(() => {
+                        showDebug('✅ コピー成功！');
+                        // ボタンのテキストを変更
+                        const button = event.target;
+                        const originalText = button.textContent;
+                        button.textContent = 'コピーしました！';
+                        button.style.backgroundColor = '#28a745';
+                        
+                        setTimeout(() => {
+                            button.textContent = originalText;
+                            button.style.backgroundColor = '#007bff';
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        showDebug('❌ Clipboard API失敗: ' + err.message);
+                        fallbackCopy(text);
+                    });
+            } else {
+                showDebug('⚠️ Clipboard API未対応');
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            // 方法2: テキストエリアを使った従来の方法
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.top = '0';
+            textarea.style.left = '0';
+            textarea.style.width = '2em';
+            textarea.style.height = '2em';
+            textarea.style.padding = '0';
+            textarea.style.border = 'none';
+            textarea.style.outline = 'none';
+            textarea.style.boxShadow = 'none';
+            textarea.style.background = 'transparent';
+            
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            
+            try {
+                const result = document.execCommand('copy');
+                if (result) {
+                    showDebug('✅ フォールバック成功！');
+                    // ボタンのテキストを変更
+                    const button = event.target;
+                    const originalText = button.textContent;
+                    button.textContent = 'コピーしました！';
+                    button.style.backgroundColor = '#28a745';
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.backgroundColor = '#007bff';
+                    }, 2000);
+                } else {
+                    showDebug('❌ フォールバック失敗');
+                    alert('コピーに失敗しました。テキストを選択して手動でコピーしてください。');
+                }
+            } catch (err) {
+                showDebug('❌ エラー: ' + err.message);
+                alert('コピーに失敗しました: ' + err.message);
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        // テキストエリアをクリックで全選択
+        document.querySelectorAll('.template-content').forEach(element => {
+            element.addEventListener('click', function() {
+                const range = document.createRange();
+                range.selectNodeContents(this);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                showDebug('📋 テキストを選択しました');
+            });
+        });
+    </script>
+</body>
+</html>
