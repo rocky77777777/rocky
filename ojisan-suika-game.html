@@ -55,6 +55,25 @@
             animation: pulse 1s infinite;
         }
         
+        #dangerWarning {
+            display: none;
+            font-size: 48px;
+            color: #ff0000;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: blink 0.5s infinite;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
         #highScoreForm {
             display: none;
             margin: 20px 0;
@@ -157,7 +176,10 @@
         <h1>🎮 おじさんスイカゲーム 🎮</h1>
         <div id="score">スコア: 0</div>
         <div id="nextOjisan">次: <span id="nextFace" style="font-size: 30px;"></span></div>
-        <canvas id="gameCanvas" width="400" height="600"></canvas>
+        <div style="position: relative; display: inline-block;">
+            <canvas id="gameCanvas" width="400" height="600"></canvas>
+            <div id="dangerWarning">⚠️ <span id="dangerCount">3</span> ⚠️</div>
+        </div>
         <div id="gameOver">💥 ゲームオーバー！ 💥</div>
         <div id="highScoreForm">
             <input type="text" id="playerName" placeholder="名前を入力" maxlength="20">
@@ -216,6 +238,8 @@
         let mouseX = canvas.width / 2;
         let canDrop = true;
         let lastDropTime = 0;
+        let dangerTimer = 0;
+        let lastDangerCheck = Date.now();
         
         // ハイスコア管理
         function loadHighScores() {
@@ -413,15 +437,46 @@
         }
         
         function checkGameOver() {
-            // 静止しているおじさんがデンジャーラインを超えているかチェック
+            const currentTime = Date.now();
+            const deltaTime = currentTime - lastDangerCheck;
+            lastDangerCheck = currentTime;
+            
+            // デンジャーラインを超えているおじさんがいるかチェック
+            let inDanger = false;
             for (let ojisan of ojisans) {
-                if (ojisan.landed && Math.abs(ojisan.vy) < 1 && ojisan.y - ojisan.radius < DANGER_LINE_Y) {
+                // 静止していて、デンジャーラインを超えている
+                if (Math.abs(ojisan.vy) < 0.5 && ojisan.y - ojisan.radius < DANGER_LINE_Y) {
+                    inDanger = true;
+                    break;
+                }
+            }
+            
+            const dangerWarningElement = document.getElementById('dangerWarning');
+            const dangerCountElement = document.getElementById('dangerCount');
+            
+            if (inDanger && !gameOver) {
+                // 危険状態の時間を加算
+                dangerTimer += deltaTime;
+                
+                // 警告表示
+                dangerWarningElement.style.display = 'block';
+                const remainingSeconds = Math.ceil((3000 - dangerTimer) / 1000);
+                dangerCountElement.textContent = Math.max(0, remainingSeconds);
+                
+                // 3秒経過したらゲームオーバー
+                if (dangerTimer >= 3000) {
                     gameOver = true;
                     gameOverElement.style.display = 'block';
                     highScoreFormElement.style.display = 'block';
+                    dangerWarningElement.style.display = 'none';
                     return true;
                 }
+            } else {
+                // 危険状態でなければタイマーリセット
+                dangerTimer = 0;
+                dangerWarningElement.style.display = 'none';
             }
+            
             return false;
         }
         
@@ -456,9 +511,15 @@
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
+            // デンジャーゾーン（赤い半透明エリア）
+            if (dangerTimer > 0) {
+                ctx.fillStyle = `rgba(255, 0, 0, ${0.1 + (dangerTimer / 3000) * 0.3})`;
+                ctx.fillRect(0, 0, canvas.width, DANGER_LINE_Y);
+            }
+            
             // デンジャーライン
-            ctx.strokeStyle = '#ff0000';
-            ctx.lineWidth = 3;
+            ctx.strokeStyle = dangerTimer > 0 ? '#ff0000' : '#ff6666';
+            ctx.lineWidth = dangerTimer > 0 ? 5 : 3;
             ctx.setLineDash([10, 5]);
             ctx.beginPath();
             ctx.moveTo(0, DANGER_LINE_Y);
@@ -467,10 +528,10 @@
             ctx.setLineDash([]);
             
             // "DANGER" テキスト
-            ctx.fillStyle = '#ff0000';
-            ctx.font = '12px Arial';
+            ctx.fillStyle = dangerTimer > 0 ? '#ff0000' : '#ff6666';
+            ctx.font = dangerTimer > 0 ? 'bold 16px Arial' : '12px Arial';
             ctx.textAlign = 'left';
-            ctx.fillText('DANGER LINE', 5, DANGER_LINE_Y - 5);
+            ctx.fillText('DANGER LINE - 3秒でゲームオーバー', 5, DANGER_LINE_Y - 5);
             
             // 次のおじさんのプレビュー
             if (!gameOver && canDrop) {
@@ -562,8 +623,11 @@
             gameOver = false;
             canDrop = true;
             lastDropTime = 0;
+            dangerTimer = 0;
+            lastDangerCheck = Date.now();
             gameOverElement.style.display = 'none';
             highScoreFormElement.style.display = 'none';
+            document.getElementById('dangerWarning').style.display = 'none';
             updateScore();
             generateNextType();
         }
