@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>キャラクタースイカゲーム</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            touch-action: none;
+            overflow: hidden;
+        }
+        
+        #gameContainer {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 100vw;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+        
+        @media (max-width: 600px) {
+            #gameContainer {
+                padding: 5px;
+                border-radius: 10px;
+                width: 100%;
+                height: 100vh;
+                box-shadow: none;
+            }
+        }
+        
+        #gameCanvas {
+            border: 4px solid #333;
+            background: #fafafa;
+            cursor: pointer;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+        
+        #score {
+            font-size: 24px;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        @media (max-width: 600px) {
+            #score {
+                font-size: 20px;
+                margin: 8px 0;
+            }
+        }
+        
+        #nextCharacter {
+            margin: 8px 0;
+            font-size: 18px;
+            color: #555;
+        }
+        
+        @media (max-width: 600px) {
+            #nextCharacter {
+                font-size: 16px;
+                margin: 5px 0;
+            }
+        }
+        
+        #gameOver {
+            display: none;
+            font-size: 28px;
+            color: #ff3333;
+            margin: 15px 0;
+            font-weight: bold;
+            animation: pulse 1s infinite;
+        }
+        
+        @media (max-width: 600px) {
+            #gameOver {
+                font-size: 24px;
+                margin: 10px 0;
+            }
+        }
+        
+        #dangerWarning {
+            display: none;
+            font-size: 48px;
+            color: #ff0000;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: blink 0.5s infinite;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        
+        @media (max-width: 600px) {
+            #dangerWarning {
+                font-size: 36px;
+            }
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        #highScoreForm {
+            display: none;
+            margin: 15px 0;
+        }
+        
+        #playerName {
+            font-size: 16px;
+            padding: 8px 12px;
+            border: 2px solid #667eea;
+            border-radius: 20px;
+            margin-right: 10px;
+            width: 150px;
+        }
+        
+        #highScores {
+            margin-top: 15px;
+            background: rgba(0,0,0,0.05);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            #highScores {
+                display: none;
+            }
+        }
+        
+        #highScores h3 {
+            margin: 0 0 8px 0;
+            color: #333;
+            font-size: 18px;
+        }
+        
+        .scoreEntry {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 10px;
+            margin: 4px 0;
+            background: white;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .rank {
+            font-weight: bold;
+            color: #667eea;
+            margin-right: 8px;
+        }
+        
+        .playerInfo {
+            flex-grow: 1;
+            text-align: left;
+        }
+        
+        .scoreValue {
+            font-weight: bold;
+            color: #764ba2;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        button {
+            font-size: 18px;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s;
+        }
+        
+        @media (max-width: 600px) {
+            button {
+                font-size: 16px;
+                padding: 8px 20px;
+            }
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+        
+        button:active {
+            transform: scale(0.95);
+        }
+        
+        .instructions {
+            margin-top: 15px;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 600px) {
+            .instructions {
+                display: none;
+            }
+        }
+        
+        h1 {
+            margin: 8px 0;
+            color: #333;
+            font-size: 22px;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 18px;
+                margin: 5px 0;
+            }
+        }
+        
+        .evolution {
+            font-size: 14px;
+            margin: 8px 0;
+            color: #777;
+        }
+        
+        @media (max-width: 600px) {
+            .evolution {
+                font-size: 11px;
+                margin: 5px 0;
+            }
+        }
+        
+        #preloadImages {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="preloadImages"></div>
+    <div id="gameContainer">
+        <h1>🎮 表情スイカゲーム 🎮</h1>
+        <div id="score">スコア: 0</div>
+        <div id="nextCharacter">次: <canvas id="nextPreview" width="60" height="60"></canvas></div>
+        <div style="position: relative; display: inline-block;">
+            <canvas id="gameCanvas"></canvas>
+            <div id="dangerWarning">⚠️ <span id="dangerCount">3</span> ⚠️</div>
+        </div>
+        <div id="gameOver">💥 ゲームオーバー！ 💥</div>
+        <div id="highScoreForm">
+            <input type="text" id="playerName" placeholder="名前を入力" maxlength="20">
+            <button onclick="saveHighScore()">スコアを記録</button>
+        </div>
+        <button onclick="resetGame()">🔄 リセット</button>
+        <div id="highScores">
+            <h3>🏆 ハイスコア 🏆</h3>
+            <div id="scoreList"></div>
+        </div>
+        <div class="evolution">
+            表情進化: 😐普通→😲驚き→😟困り→🤔疑問→😊笑顔→😠怒り→😌満足→🧐真剣→😱ショック
+        </div>
+        <div class="instructions">
+            タップで落とす！同じ表情のキャラが合体すると新しい表情に進化するよ！
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const nextPreviewCanvas = document.getElementById('nextPreview');
+        const nextPreviewCtx = nextPreviewCanvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const gameOverElement = document.getElementById('gameOver');
+        const highScoreFormElement = document.getElementById('highScoreForm');
+        const playerNameElement = document.getElementById('playerName');
+        const scoreListElement = document.getElementById('scoreList');
+        
+        // キャラクター画像の読み込み
+        const characterImage = new Image();
+        characterImage.src = '../画像/20250626_1736_多様な表情デザイン_remix_01jynp0m53fc9ayq3edr08s8rj.png';
+        
+        // キャンバスサイズを設定
+        function setCanvasSize() {
+            const container = document.getElementById('gameContainer');
+            const maxWidth = Math.min(400, window.innerWidth - 30);
+            const maxHeight = Math.min(600, window.innerHeight - 250);
+            
+            // アスペクト比を保つ
+            if (maxWidth / 400 < maxHeight / 600) {
+                canvas.width = maxWidth;
+                canvas.height = maxWidth * 1.5;
+            } else {
+                canvas.height = maxHeight;
+                canvas.width = maxHeight / 1.5;
+            }
+            
+            // ゲーム内の座標をスケール
+            canvas.scale = canvas.width / 400;
+        }
+        
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize);
+        
+        // ゲーム設定
+        const GRAVITY = 0.8;
+        const BOUNCE_DAMPING = 0.2;
+        const FRICTION = 0.85;
+        const DROP_LINE_Y = 80;
+        const DANGER_LINE_Y = 150;
+        const DROP_COOLDOWN = 0;
+        
+        // キャラクターの種類（画像の位置とサイズ）
+        const characterTypes = [
+            { radius: 20, row: 0, col: 0, points: 1, expression: '普通' },        // レベル1: 普通
+            { radius: 25, row: 0, col: 1, points: 2, expression: '驚き' },        // レベル2: 驚き
+            { radius: 30, row: 0, col: 2, points: 5, expression: '困り' },        // レベル3: 困り
+            { radius: 35, row: 1, col: 0, points: 10, expression: '疑問' },       // レベル4: 疑問
+            { radius: 40, row: 1, col: 1, points: 20, expression: '笑顔' },       // レベル5: 笑顔
+            { radius: 45, row: 1, col: 2, points: 50, expression: '怒り' },       // レベル6: 怒り
+            { radius: 50, row: 2, col: 0, points: 100, expression: '満足' },      // レベル7: 満足
+            { radius: 55, row: 2, col: 1, points: 200, expression: '真剣' },      // レベル8: 真剣
+            { radius: 60, row: 2, col: 2, points: 500, expression: 'ショック' },   // レベル9: ショック
+        ];
+        
+        let characters = [];
+        let score = 0;
+        let gameOver = false;
+        let nextType = 0;
+        let mouseX = 200;
+        let canDrop = true;
+        let lastDropTime = 0;
+        let dangerTimer = 0;
+        let lastDangerCheck = Date.now();
+        let imagesLoaded = false;
+        
+        // 画像読み込み完了を待つ
+        characterImage.onload = function() {
+            imagesLoaded = true;
+            resetGame();
+        };
+        
+        // ハイスコア管理
+        function loadHighScores() {
+            const stored = localStorage.getItem('characterSuikaHighScores');
+            return stored ? JSON.parse(stored) : [];
+        }
+        
+        function saveHighScore() {
+            const name = playerNameElement.value.trim();
+            if (!name) {
+                alert('名前を入力してください！');
+                return;
+            }
+            
+            const highScores = loadHighScores();
+            highScores.push({
+                name: name,
+                score: score,
+                date: new Date().toISOString()
+            });
+            
+            highScores.sort((a, b) => b.score - a.score);
+            const topScores = highScores.slice(0, 10);
+            localStorage.setItem('characterSuikaHighScores', JSON.stringify(topScores));
+            
+            highScoreFormElement.style.display = 'none';
+            playerNameElement.value = '';
+            
+            displayHighScores();
+        }
+        
+        function displayHighScores() {
+            const highScores = loadHighScores();
+            scoreListElement.innerHTML = '';
+            
+            if (highScores.length === 0) {
+                scoreListElement.innerHTML = '<div style="color: #999;">まだスコアがありません</div>';
+                return;
+            }
+            
+            highScores.forEach((entry, index) => {
+                const scoreEntry = document.createElement('div');
+                scoreEntry.className = 'scoreEntry';
+                
+                const rank = document.createElement('span');
+                rank.className = 'rank';
+                rank.textContent = `${index + 1}位`;
+                
+                const playerInfo = document.createElement('span');
+                playerInfo.className = 'playerInfo';
+                playerInfo.textContent = entry.name;
+                
+                const scoreValue = document.createElement('span');
+                scoreValue.className = 'scoreValue';
+                scoreValue.textContent = `${entry.score}点`;
+                
+                scoreEntry.appendChild(rank);
+                scoreEntry.appendChild(playerInfo);
+                scoreEntry.appendChild(scoreValue);
+                scoreListElement.appendChild(scoreEntry);
+            });
+        }
+        
+        class Character {
+            constructor(x, y, type) {
+                this.x = x;
+                this.y = y;
+                this.type = type;
+                this.radius = characterTypes[type].radius;
+                this.vx = 0;
+                this.vy = 0;
+                this.merged = false;
+                this.landed = false;
+            }
+            
+            update() {
+                if (this.merged) return;
+                
+                this.vy += GRAVITY;
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // 床との衝突
+                if (this.y + this.radius > 600) {
+                    this.y = 600 - this.radius;
+                    this.vy *= -BOUNCE_DAMPING;
+                    this.vx *= FRICTION;
+                    this.landed = true;
+                    
+                    if (Math.abs(this.vy) < 0.5) this.vy = 0;
+                    if (Math.abs(this.vx) < 0.5) this.vx = 0;
+                }
+                
+                // 壁との衝突
+                if (this.x - this.radius < 0) {
+                    this.x = this.radius;
+                    this.vx = Math.abs(this.vx) * BOUNCE_DAMPING;
+                }
+                if (this.x + this.radius > 400) {
+                    this.x = 400 - this.radius;
+                    this.vx = -Math.abs(this.vx) * BOUNCE_DAMPING;
+                }
+                
+                this.vx *= FRICTION;
+            }
+            
+            draw() {
+                if (this.merged || !imagesLoaded) return;
+                
+                // 影を描画
+                ctx.globalAlpha = 0.2;
+                ctx.fillStyle = '#000';
+                ctx.beginPath();
+                ctx.ellipse(this.x, this.y + this.radius - 5, this.radius * 0.8, this.radius * 0.3, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+                
+                // キャラクター画像を描画
+                const charType = characterTypes[this.type];
+                const sourceSize = 512; // 元画像の各キャラクターのサイズ
+                const sx = charType.col * sourceSize;
+                const sy = charType.row * sourceSize;
+                
+                ctx.drawImage(
+                    characterImage,
+                    sx, sy, sourceSize, sourceSize,
+                    this.x - this.radius, this.y - this.radius,
+                    this.radius * 2, this.radius * 2
+                );
+            }
+        }
+        
+        function handleCollisions() {
+            for (let i = 0; i < characters.length; i++) {
+                for (let j = i + 1; j < characters.length; j++) {
+                    const a = characters[i];
+                    const b = characters[j];
+                    
+                    if (a.merged || b.merged) continue;
+                    
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const minDistance = a.radius + b.radius;
+                    
+                    if (distance < minDistance) {
+                        // 同じタイプなら合体
+                        if (a.type === b.type && a.type < characterTypes.length - 1) {
+                            const newX = (a.x + b.x) / 2;
+                            const newY = (a.y + b.y) / 2;
+                            
+                            a.merged = true;
+                            b.merged = true;
+                            
+                            const newCharacter = new Character(newX, newY, a.type + 1);
+                            newCharacter.vy = -2;
+                            characters.push(newCharacter);
+                            
+                            score += characterTypes[a.type].points * 2;
+                            updateScore();
+                            
+                            setTimeout(() => {
+                                characters = characters.filter(c => !c.merged);
+                            }, 50);
+                        } else {
+                            // 物理的な衝突処理
+                            const overlap = minDistance - distance;
+                            const pushX = (dx / distance) * overlap * 0.5;
+                            const pushY = (dy / distance) * overlap * 0.5;
+                            
+                            a.x += pushX;
+                            a.y += pushY;
+                            b.x -= pushX;
+                            b.y -= pushY;
+                            
+                            const tempVx = a.vx;
+                            const tempVy = a.vy;
+                            a.vx = b.vx * BOUNCE_DAMPING;
+                            a.vy = b.vy * BOUNCE_DAMPING;
+                            b.vx = tempVx * BOUNCE_DAMPING;
+                            b.vy = tempVy * BOUNCE_DAMPING;
+                        }
+                    }
+                }
+            }
+        }
+        
+        function checkGameOver() {
+            const currentTime = Date.now();
+            const deltaTime = currentTime - lastDangerCheck;
+            lastDangerCheck = currentTime;
+            
+            let inDanger = false;
+            for (let character of characters) {
+                if (Math.abs(character.vy) < 0.5 && character.y - character.radius < DANGER_LINE_Y) {
+                    inDanger = true;
+                    break;
+                }
+            }
+            
+            const dangerWarningElement = document.getElementById('dangerWarning');
+            const dangerCountElement = document.getElementById('dangerCount');
+            
+            if (inDanger && !gameOver) {
+                dangerTimer += deltaTime;
+                
+                dangerWarningElement.style.display = 'block';
+                const remainingSeconds = Math.ceil((3000 - dangerTimer) / 1000);
+                dangerCountElement.textContent = Math.max(0, remainingSeconds);
+                
+                if (dangerTimer >= 3000) {
+                    gameOver = true;
+                    gameOverElement.style.display = 'block';
+                    highScoreFormElement.style.display = 'block';
+                    dangerWarningElement.style.display = 'none';
+                    return true;
+                }
+            } else {
+                dangerTimer = 0;
+                dangerWarningElement.style.display = 'none';
+            }
+            
+            return false;
+        }
+        
+        function updateScore() {
+            scoreElement.textContent = `スコア: ${score}`;
+        }
+        
+        function generateNextType() {
+            const weights = [30, 25, 20, 15, 10];
+            const totalWeight = weights.reduce((a, b) => a + b, 0);
+            let random = Math.random() * totalWeight;
+            
+            for (let i = 0; i < weights.length; i++) {
+                random -= weights[i];
+                if (random <= 0) {
+                    nextType = i;
+                    break;
+                }
+            }
+            
+            // 次のキャラクターをプレビュー表示
+            if (imagesLoaded) {
+                nextPreviewCtx.clearRect(0, 0, 60, 60);
+                const charType = characterTypes[nextType];
+                const sourceSize = 512;
+                const sx = charType.col * sourceSize;
+                const sy = charType.row * sourceSize;
+                
+                nextPreviewCtx.drawImage(
+                    characterImage,
+                    sx, sy, sourceSize, sourceSize,
+                    5, 5, 50, 50
+                );
+            }
+        }
+        
+        function gameLoop() {
+            if (!imagesLoaded) {
+                requestAnimationFrame(gameLoop);
+                return;
+            }
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.save();
+            ctx.scale(canvas.scale, canvas.scale);
+            
+            // 背景
+            const gradient = ctx.createLinearGradient(0, 0, 0, 600);
+            gradient.addColorStop(0, '#f0f0f0');
+            gradient.addColorStop(1, '#e0e0e0');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 400, 600);
+            
+            // デンジャーゾーン
+            if (dangerTimer > 0) {
+                ctx.fillStyle = `rgba(255, 0, 0, ${0.1 + (dangerTimer / 3000) * 0.3})`;
+                ctx.fillRect(0, 0, 400, DANGER_LINE_Y);
+            }
+            
+            // デンジャーライン
+            ctx.strokeStyle = dangerTimer > 0 ? '#ff0000' : '#ff6666';
+            ctx.lineWidth = dangerTimer > 0 ? 5 : 3;
+            ctx.setLineDash([10, 5]);
+            ctx.beginPath();
+            ctx.moveTo(0, DANGER_LINE_Y);
+            ctx.lineTo(400, DANGER_LINE_Y);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            ctx.fillStyle = dangerTimer > 0 ? '#ff0000' : '#ff6666';
+            ctx.font = dangerTimer > 0 ? 'bold 16px Arial' : '12px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText('DANGER LINE - 3秒でゲームオーバー', 5, DANGER_LINE_Y - 5);
+            
+            // 次のキャラクターのプレビュー
+            if (!gameOver && canDrop && imagesLoaded) {
+                ctx.globalAlpha = 0.5;
+                const charType = characterTypes[nextType];
+                const sourceSize = 512;
+                const sx = charType.col * sourceSize;
+                const sy = charType.row * sourceSize;
+                
+                ctx.drawImage(
+                    characterImage,
+                    sx, sy, sourceSize, sourceSize,
+                    mouseX - charType.radius, DROP_LINE_Y - charType.radius,
+                    charType.radius * 2, charType.radius * 2
+                );
+                ctx.globalAlpha = 1;
+            }
+            
+            characters.forEach(character => character.update());
+            handleCollisions();
+            characters.forEach(character => character.draw());
+            
+            if (!gameOver) {
+                checkGameOver();
+            }
+            
+            if (!canDrop && Date.now() - lastDropTime > DROP_COOLDOWN) {
+                canDrop = true;
+            }
+            
+            ctx.restore();
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // イベントハンドラー
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            mouseX = (touch.clientX - rect.left) / canvas.scale;
+            const maxX = 400 - characterTypes[nextType].radius;
+            const minX = characterTypes[nextType].radius;
+            mouseX = Math.max(minX, Math.min(maxX, mouseX));
+        });
+        
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = (e.clientX - rect.left) / canvas.scale;
+            const maxX = 400 - characterTypes[nextType].radius;
+            const minX = characterTypes[nextType].radius;
+            mouseX = Math.max(minX, Math.min(maxX, mouseX));
+        });
+        
+        function dropCharacter(clientX) {
+            if (gameOver || !canDrop || !imagesLoaded) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = (clientX - rect.left) / canvas.scale;
+            
+            const newCharacter = new Character(x, DROP_LINE_Y, nextType);
+            characters.push(newCharacter);
+            
+            canDrop = false;
+            lastDropTime = Date.now();
+            
+            generateNextType();
+        }
+        
+        canvas.addEventListener('click', (e) => {
+            dropCharacter(e.clientX);
+        });
+        
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            if (e.changedTouches.length > 0) {
+                dropCharacter(e.changedTouches[0].clientX);
+            }
+        });
+        
+        playerNameElement.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                saveHighScore();
+            }
+        });
+        
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !gameOver && canDrop && document.activeElement !== playerNameElement) {
+                const newCharacter = new Character(mouseX, DROP_LINE_Y, nextType);
+                characters.push(newCharacter);
+                
+                canDrop = false;
+                lastDropTime = Date.now();
+                
+                generateNextType();
+            }
+        });
+        
+        function resetGame() {
+            characters = [];
+            score = 0;
+            gameOver = false;
+            canDrop = true;
+            lastDropTime = 0;
+            dangerTimer = 0;
+            lastDangerCheck = Date.now();
+            gameOverElement.style.display = 'none';
+            highScoreFormElement.style.display = 'none';
+            document.getElementById('dangerWarning').style.display = 'none';
+            updateScore();
+            generateNextType();
+        }
+        
+        // ゲーム開始
+        displayHighScores();
+        gameLoop();
+    </script>
+</body>
+</html>
