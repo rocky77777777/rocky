@@ -1,0 +1,41 @@
+# Core dependencies
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+pandas>=2.0.3
+numpy>=1.24.3
+
+# Natural Language Processing
+mecab-python3>=1.0.6
+unidic-lite>=1.0.8
+nltk>=3.8.1
+
+# API clients
+anthropic>=0.18.0
+python-wordpress-xmlrpc>=2.3
+
+# Environment and configuration
+python-dotenv>=1.0.0
+
+# Logging and monitoring
+colorlog>=6.7.0
+
+# Scheduling (optional, for cron-like functionality)
+schedule>=1.2.0
+
+# Image handling (for featured images)
+Pillow>=10.0.0
+
+# JSON handling
+ujson>=5.8.0
+
+# Rate limiting
+ratelimit>=2.2.1
+
+# Testing (optional)
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Code quality (optional)
+black>=23.7.0
+flake8>=6.1.0
+mypy>=1.5.0

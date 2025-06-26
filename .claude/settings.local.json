@@ -6,7 +6,8 @@
       "Bash(npm install:*)",
       "Bash(marp:*)",
       "Bash(ls:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(touch:*)"
     ],
     "deny": []
   }
